@@ -1,0 +1,152 @@
+<DOCTYPE html>
+    <html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+
+    </head>
+
+    <body>
+        <div class="cabeca">
+            <h2>Vez do player: </h2>
+            <h2 id="player"></h2>
+            <h4> Player 1 --> X </h4>
+            <h4>Player 2 --> O</h4>
+
+        </div>
+
+        <div id="jogo">
+
+            <div class="linha">
+                <div class="casa"><button id="1" onclick="markCell(0,0); desenho(1)"></button></div>
+                <div class="casa"><button id="2" onclick="markCell(0,1); desenho(2)"></button></div>
+                <div class="casa"><button id="3" onclick="markCell(0,2); desenho(3)"></button></div>
+            </div>
+            <div class="linha">
+                <div class="casa"><button id="4" onclick="markCell(1,0); desenho(4)"></button></div>
+                <div class="casa"><button id="5" onclick="markCell(1,1); desenho(5)"></button></div>
+                <div class="casa"><button id="6" onclick="markCell(1,2); desenho(6)"></button></div>
+            </div>
+            <div class="linha">
+                <div class="casa"><button id="7" onclick="markCell(2,0); desenho(7)"></button></div>
+                <div class="casa"><button id="8" onclick="markCell(2,1); desenho(8)"></button></div>
+                <div class="casa"><button id="9" onclick="markCell(2,2); desenho(9)"></button></div>
+            </div>
+        </div>
+
+        <div class="button-start"><button onclick="start()">Start</button></div>
+        <div class="button-reset"><button onclick="reset()">Reset</button></div>
+
+        <script>
+            // Declaração das variaveis no campo global do progama
+            var Matriz = new Array(3); //criar as linhas
+            Matriz = Matriz.map(linha => new Array(3)); //criar as colunas 
+            var player = "Clique em Start para Iniciar";
+            document.getElementById("player").innerHTML = player;
+
+            function start() {
+                player = 1;
+                document.getElementById("player").innerHTML = player;
+                for (var i = 0; i < 3; i++) {
+                    Matriz[i] = []
+                    for (var j = 0; j < 3; j++)
+                        Matriz[i][j] = 0;
+                }
+            }
+
+            function reset() {
+                document.location.reload(true);
+            }
+
+            function markCell(i, j) {
+                if (player == "Clique em Start para Iniciar") {
+                    alert("Clique em Start para iniciar")
+                }
+                if (Matriz[i][j] == 0) {
+                    if (player == 1) {
+                        Matriz[i][j] = 1
+                        validacao() // validação das regras de jogo para cada jogada realizada pelo player 1
+                        player = 2
+
+                    } else {
+                        Matriz[i][j] = 2
+                        validacao()// validação das regras de jogo para cada jogada realizada pelo player 2
+                        player = 1;
+
+                    }
+                    document.getElementById("player").innerHTML = player;
+                } else {
+                    alert("Jogada Inválida! Esse campo já foi preenchido")
+                }
+            }
+
+            //Função para realizar a parte visual do jogo de acordo com o player que jogou e a celula selecionada
+            function desenho(n) {
+                if (player == 1) {
+                    document.getElementById(n).innerHTML = "O"
+                } else
+                    document.getElementById(n).innerHTML = "X"
+            }
+
+            //Validação dos valores de acordo com as regras do jogo (Nessa função poderia ser utilizado o for para reduzir e otimizar as validações porém estavam ocorrendo erros)
+            function validacao() {
+                var vencedor = false
+
+                // percorrendo as linhas 
+                if (Matriz[0][0] != 0 && Matriz[0][0] == player && Matriz[0][1] == player && Matriz[0][2] == player)
+                    vencedor = true
+                if (Matriz[1][0] != 0 && Matriz[1][0] == player && Matriz[1][1] == player && Matriz[1][2] == player)
+                    vencedor = true
+                if (Matriz[2][0] != 0 && Matriz[2][0] == player && Matriz[2][1] == player && Matriz[2][2] == player)
+                    vencedor = true
+
+                // percorrendo as colunas 
+                if (Matriz[0][0] != 0 && Matriz[0][0] == player && Matriz[1][0] == player && Matriz[2][0] == player)
+                    vencedor = true
+                if (Matriz[0][1] != 0 && Matriz[0][1] == player && Matriz[1][1] == player && Matriz[2][1] == player)
+                    vencedor = true
+                if (Matriz[0][2] != 0 && Matriz[0][2] == player && Matriz[1][2] == player && Matriz[2][2] == player)
+                    vencedor = true
+
+                //diagonais 
+                if (Matriz[0][0] != 0 && Matriz[0][0] == player && Matriz[1][1] == player && Matriz[2][2] == player)
+                    vencedor = true
+                if (Matriz[0][2] != 0 && Matriz[0][2] == player && Matriz[1][1] == player && Matriz[2][0] == player)
+                    vencedor = true
+
+                validacao_velha()
+                if (vencedor == true) {
+                    alert("Vencedor foi o player: " + player + "\n Clique em reset para jogar novamente!")
+
+                }
+
+
+            }
+            function validacao_velha() {
+                //criação de um vetor de 9 posiçoes para validar a regra de empate do jogo
+                var velha = new Array(9)
+                var v1 = new Array(3)
+                var v2 = new Array(3)
+                var v3 = new Array(3)
+
+                for (let i = 0; i < 3; i++)
+                    v1[i] = Matriz[0][i]
+                for (let i = 0; i < 3; i++)
+                    v2[i] = Matriz[1][i]
+                for (let i = 0; i < 3; i++)
+                    v3[i] = Matriz[2][i]
+
+                velha = v1.concat(v2, v3);
+                const found = velha.find(element => element == 0);
+                if (found == undefined) {
+                    alert("Deu velha! \n Clique em reset para jogar novamente!");
+
+                }
+            }
+
+
+
+        </script>
+    </body>
+
+    </html>

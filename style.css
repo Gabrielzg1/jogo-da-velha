@@ -1,0 +1,83 @@
+body{
+    background-color: rgb(173, 173, 173);
+    
+}
+#jogo{
+    width:603px;
+    height:600px;
+    border:solid 3px;
+    
+    
+}
+ 
+.linha{
+    height:200px;
+    border-bottom:solid 1px;
+}
+ 
+.casa{
+    width:200px;
+    height:100%;
+    border-right:solid 1px;
+    float:left;
+    font-size: 210px;
+    
+}
+.casa button{
+    width:200px;
+    height:100%;
+    border-right:solid 1px;
+    float:left;
+    background-color: #fff;
+    font-size: 50px;
+}
+.casa button:hover{
+   
+    background-color: rgb(199, 199, 199);
+}
+.button-reset button{
+    width:305px;
+    height:80px;
+    border-right:solid 1px;
+    float:left;
+    background-color: rgb(255, 0, 0);
+    border-radius: 5px;
+    font-weight: 900;
+    font-size: 40px;
+    
+}
+.button-start button{
+    width:305px;
+    height:80px;
+    border-right:solid 1px;
+    float:left;
+    background-color: rgb(30, 255, 0);
+    border-radius: 5px;
+    font-weight: 900;
+    font-size: 40px;
+   
+
+}
+.button-start button:hover{
+    
+    background-color: rgb(16, 119, 2);
+   
+}
+.button-reset button:hover{
+    
+    background-color: rgb(143, 0, 0);
+   
+}
+#resultado{
+    width: 100px;
+    display: inline;
+    font-size: 30px;
+    font-weight: 700;
+}
+#player{
+    font-size: 20px;
+    font-weight: 700;
+}
+.cabeca{
+display: inline;
+}
